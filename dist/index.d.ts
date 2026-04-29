@@ -1,0 +1,59 @@
+import { $ as InvalidRequestError, $t as GetWebConfigParams, A as fetchWebcastSignatureFromEulerRoute, At as SessionBundle, B as createEulerClient, Bt as WebcastWebConfigDefaults, C as RoomGiftsRouteParams, Ct as CookieSessionBundle, D as FetchWebcastSignatureFromEulerRouteParams, Dt as OAuthTokenSessionBundle, E as sendRoomChatFromEulerRoute, Et as IWebcastDeserializeConfig, F as fetchRoomInfoFromEulerRoute, Ft as TikTokLiveConstructorConnectionOptions, G as WebcastHttpEulerRouteArgs, Gt as deserializeWebSocketMessage, H as EulerRouteRequestOptions, Ht as WebcastDeserializeConfig, I as FetchRoomIdFromEulerRouteParams, It as WebSocketParams, J as AlreadyConnectedError, Jt as WebSocketConfigDefaults, K as WebcastHttpRouteArgs, Kt as validateAndNormalizeUniqueId, L as fetchRoomIdFromEulerRoute, Lt as WebcastEventMessage, M as FetchSignedWebSocketFromEulerRouteResponse, Mt as TikTokLiveConnectionMutableOptions, N as fetchSignedWebSocketFromEulerRoute, Nt as TikTokLiveConnectionOptions, O as WebcastSignerParams, Ot as RoomGiftInfo, P as FetchRoomInfoFromEulerRouteParams, Pt as TikTokLiveConnectionProviderOptions, Q as ErrorReason, Qt as DevicePreset, R as LIBRARY_IDENTITY, Rt as WebcastHttpClientRequestParams, S as RoomGiftsResponse, St as WebcastWebSocketEventMap, T as SendRoomChatFromEulerRouteParams, Tt as DecodedWebcastPushFrame, U as HttpRoute, Ut as createBaseWebcastPushFrame, V as index_d_exports$1, Vt as generateUniqId, W as WebcastHttpCompositeRouteArgs, Wt as deserializeMessage, X as AuthenticatedWebSocketConnectionError, Xt as WebcastWebSocketConfigDefaults, Y as AlreadyConnectingError, Yt as WebcastWebSocketConfig, Z as ConnectTimeoutError, Zt as AbstractWebcastCookieJar, _ as FetchRoomInfoFromApiRouteResponse, _t as WebcastEvent, a as EulerFetchRoute, at as SchemaDecodeError, b as RoomInfoRouteParams, bt as createWebSocketProvider, c as fetchIsLiveComposite, ct as SignatureRateLimitError, d as fetchRoomIdComposite, dt as BasicWebcastEventMessage, en as GetWebSocketConfigParams, et as InvalidResponseCompositeError, f as FetchRoomInfoFromHtmlRouteParams, ft as ClientEventMap, g as FetchRoomInfoFromApiRouteParams, gt as TikTokLiveConnectionState, h as fetchRoomInfoFromHtmlRoute, ht as EventHandler, i as CompositeFetchRoute, in as WebcastGotHttpConfig, it as PremiumFeatureError, j as FetchSignedWebSocketFromEulerRouteParams, jt as TikTokLiveConnectionBundledAuthOptions, k as WebcastSignerResponse, kt as RoomInfo, l as FetchRoomIdRouteParams, lt as TikTokLiveError, m as RoomInfoFromHtmlRouteConfig, mt as ControlEvent, n as HandleError, nn as ScreenPreset, nt as InvalidSchemaNameError, o as FetchIsLiveRouteParams, ot as SignAPIError, p as FetchRoomInfoFromHtmlRouteResponse, pt as ConnectState, q as WrappedHttpRoute, qt as getWebSocketConfigDefaults, r as BaseFetchRoute, rn as WebSocketDynamicParams, rt as InvalidUniqueIdError, s as IsLiveRouteConfig, st as SignatureMissingTokensError, t as TikTokLiveConnection, tn as LocationPreset, tt as InvalidResponseError, u as RoomIdRouteConfig, ut as UserOfflineError, v as fetchRoomInfoFromApiLiveRoute, vt as WebcastEventMap, w as fetchRoomGiftsRoute, wt as DecodedData, x as fetchRoomInfoRoute, xt as WebcastTypedWebSocket, y as RoomInfoResponse, yt as WebcastTypedClient, z as SignConfig, zt as WebcastMessage } from "./index-DYHjCe5b.js";
+import * as _$_eulerstream_euler_api_sdk0 from "@eulerstream/euler-api-sdk";
+export * from "tiktok-live-proto/v2";
+
+//#region src/lib/web/config.d.ts
+/**
+ * Global route registry. Call sites should read handlers from here (e.g. RouteConfig.fetchRoomInfo(...))
+ * rather than importing the route functions directly, so downstream consumers can swap implementations:
+ *
+ *   import { RouteConfig } from 'tiktok-live-connector';
+ *   RouteConfig.fetchRoomInfo = async ({ webClient, roomId }) => { ... };
+ *
+ */
+declare const RouteConfig: {
+  fetchRoomGifts: HttpRoute<RoomGiftsRouteParams, any>;
+  fetchRoomInfo: HttpRoute<RoomInfoRouteParams, any>;
+  fetchRoomInfoFromApiLive: HttpRoute<FetchRoomInfoFromApiRouteParams, FetchRoomInfoFromApiRouteResponse>;
+  fetchRoomInfoFromHtml: HttpRoute<FetchRoomInfoFromHtmlRouteParams, FetchRoomInfoFromHtmlRouteResponse>;
+  fetchRoomIdFromProvider: HttpRoute<FetchRoomIdFromEulerRouteParams, _$_eulerstream_euler_api_sdk0.WebcastRoomIdRouteResponse>;
+  fetchRoomInfoFromProvider: HttpRoute<FetchRoomInfoFromEulerRouteParams, _$_eulerstream_euler_api_sdk0.WebcastRoomInfoRouteResponse>;
+  fetchSignedWebSocketFromProvider: HttpRoute<FetchSignedWebSocketFromEulerRouteParams, FetchSignedWebSocketFromEulerRouteResponse>;
+  fetchWebcastSignatureFromProvider: HttpRoute<FetchWebcastSignatureFromEulerRouteParams, _$_eulerstream_euler_api_sdk0.SignWebcastUrl200Response>;
+  sendRoomChatFromProvider: HttpRoute<SendRoomChatFromEulerRouteParams, _$_eulerstream_euler_api_sdk0.WebcastRoomChatRouteResponse>;
+  fetchRoomIdComposite: HttpRoute<FetchRoomIdRouteParams, string>;
+  fetchIsLiveComposite: HttpRoute<FetchIsLiveRouteParams, boolean>;
+};
+declare const getWebConfig: ({
+  device,
+  location,
+  screen
+}: GetWebConfigParams) => WebcastWebConfigDefaults;
+declare const getRandomPresets: () => {
+  device: DevicePreset;
+  screen: ScreenPreset;
+  location: LocationPreset;
+};
+//#endregion
+//#region src/lib/web/lib/device-presets.d.ts
+declare const Locations: LocationPreset[];
+declare const Screens: ScreenPreset[];
+declare const UserAgents: string[];
+declare function userAgentToDevicePreset(userAgent: string): DevicePreset;
+declare function getRandomDevicePreset(): DevicePreset;
+declare function getRandomLocationPreset(): LocationPreset;
+declare function getRandomScreenPreset(): ScreenPreset;
+declare function generateDeviceId(): string;
+declare const Devices: DevicePreset[];
+//#endregion
+//#region src/lib/web/lib/route-wrapper.d.ts
+declare function createRoute<P extends object, R>(routeId: string, routeHandler: WrappedHttpRoute<P, R>): HttpRoute<P, R>;
+//#endregion
+//#region src/version.d.ts
+declare const VERSION: string;
+declare namespace index_d_exports {
+  export { AbstractWebcastCookieJar, AlreadyConnectedError, AlreadyConnectingError, AuthenticatedWebSocketConnectionError, BaseFetchRoute, BasicWebcastEventMessage, ClientEventMap, CompositeFetchRoute, ConnectState, ConnectTimeoutError, ControlEvent, CookieSessionBundle, DecodedData, DecodedWebcastPushFrame, DevicePreset, Devices, ErrorReason, EulerFetchRoute, EulerRouteRequestOptions, EventHandler, FetchIsLiveRouteParams, FetchRoomIdFromEulerRouteParams, FetchRoomIdRouteParams, FetchRoomInfoFromApiRouteParams, FetchRoomInfoFromApiRouteResponse, FetchRoomInfoFromEulerRouteParams, FetchRoomInfoFromHtmlRouteParams, FetchRoomInfoFromHtmlRouteResponse, FetchSignedWebSocketFromEulerRouteParams, FetchSignedWebSocketFromEulerRouteResponse, FetchWebcastSignatureFromEulerRouteParams, GetWebConfigParams, GetWebSocketConfigParams, HandleError, HttpRoute, IWebcastDeserializeConfig, InvalidRequestError, InvalidResponseCompositeError, InvalidResponseError, InvalidSchemaNameError, InvalidUniqueIdError, IsLiveRouteConfig, LIBRARY_IDENTITY, LocationPreset, Locations, OAuthTokenSessionBundle, PremiumFeatureError, RoomGiftInfo, RoomGiftsResponse, RoomGiftsRouteParams, RoomIdRouteConfig, RoomInfo, RoomInfoFromHtmlRouteConfig, RoomInfoResponse, RoomInfoRouteParams, RouteConfig, SchemaDecodeError, ScreenPreset, Screens, SendRoomChatFromEulerRouteParams, SessionBundle, SignAPIError, SignConfig, SignatureMissingTokensError, SignatureRateLimitError, TikTokLiveConnection, TikTokLiveConnectionBundledAuthOptions, TikTokLiveConnectionMutableOptions, TikTokLiveConnectionOptions, TikTokLiveConnectionProviderOptions, TikTokLiveConnectionState, TikTokLiveConstructorConnectionOptions, TikTokLiveError, UserAgents, UserOfflineError, VERSION, WebSocketConfigDefaults, WebSocketDynamicParams, WebSocketParams, WebcastDeserializeConfig, WebcastEvent, WebcastEventMap, WebcastEventMessage, WebcastGotHttpConfig, WebcastHttpClientRequestParams, WebcastHttpCompositeRouteArgs, WebcastHttpEulerRouteArgs, WebcastHttpRouteArgs, WebcastMessage, WebcastSignerParams, WebcastSignerResponse, WebcastTypedClient, WebcastTypedWebSocket, WebcastWebConfigDefaults, WebcastWebSocketConfig, WebcastWebSocketConfigDefaults, WebcastWebSocketEventMap, WrappedHttpRoute, createBaseWebcastPushFrame, createEulerClient, createRoute, createWebSocketProvider, deserializeMessage, deserializeWebSocketMessage, fetchIsLiveComposite, fetchRoomGiftsRoute, fetchRoomIdComposite, fetchRoomIdFromEulerRoute, fetchRoomInfoFromApiLiveRoute, fetchRoomInfoFromEulerRoute, fetchRoomInfoFromHtmlRoute, fetchRoomInfoRoute, fetchSignedWebSocketFromEulerRoute, fetchWebcastSignatureFromEulerRoute, generateDeviceId, generateUniqId, getRandomDevicePreset, getRandomLocationPreset, getRandomPresets, getRandomScreenPreset, getWebConfig, getWebSocketConfigDefaults, sendRoomChatFromEulerRoute, userAgentToDevicePreset, validateAndNormalizeUniqueId };
+}
+//#endregion
+export { AbstractWebcastCookieJar, AlreadyConnectedError, AlreadyConnectingError, AuthenticatedWebSocketConnectionError, BaseFetchRoute, BasicWebcastEventMessage, ClientEventMap, CompositeFetchRoute, ConnectState, ConnectTimeoutError, ControlEvent, CookieSessionBundle, DecodedData, DecodedWebcastPushFrame, DevicePreset, Devices, ErrorReason, EulerFetchRoute, EulerRouteRequestOptions, EventHandler, FetchIsLiveRouteParams, FetchRoomIdFromEulerRouteParams, FetchRoomIdRouteParams, FetchRoomInfoFromApiRouteParams, FetchRoomInfoFromApiRouteResponse, FetchRoomInfoFromEulerRouteParams, FetchRoomInfoFromHtmlRouteParams, FetchRoomInfoFromHtmlRouteResponse, FetchSignedWebSocketFromEulerRouteParams, FetchSignedWebSocketFromEulerRouteResponse, FetchWebcastSignatureFromEulerRouteParams, GetWebConfigParams, GetWebSocketConfigParams, HandleError, HttpRoute, IWebcastDeserializeConfig, InvalidRequestError, InvalidResponseCompositeError, InvalidResponseError, InvalidSchemaNameError, InvalidUniqueIdError, IsLiveRouteConfig, LIBRARY_IDENTITY, LocationPreset, Locations, OAuthTokenSessionBundle, PremiumFeatureError, RoomGiftInfo, RoomGiftsResponse, RoomGiftsRouteParams, RoomIdRouteConfig, RoomInfo, RoomInfoFromHtmlRouteConfig, RoomInfoResponse, RoomInfoRouteParams, RouteConfig, SchemaDecodeError, ScreenPreset, Screens, SendRoomChatFromEulerRouteParams, SessionBundle, SignAPIError, SignConfig, SignatureMissingTokensError, SignatureRateLimitError, TikTokLiveConnection, TikTokLiveConnectionBundledAuthOptions, TikTokLiveConnectionMutableOptions, TikTokLiveConnectionOptions, TikTokLiveConnectionProviderOptions, TikTokLiveConnectionState, TikTokLiveConstructorConnectionOptions, TikTokLiveError, UserAgents, UserOfflineError, VERSION, WebSocketConfigDefaults, WebSocketDynamicParams, WebSocketParams, WebcastDeserializeConfig, WebcastEvent, WebcastEventMap, WebcastEventMessage, WebcastGotHttpConfig, WebcastHttpClientRequestParams, WebcastHttpCompositeRouteArgs, WebcastHttpEulerRouteArgs, WebcastHttpRouteArgs, WebcastMessage, WebcastSignerParams, WebcastSignerResponse, WebcastTypedClient, WebcastTypedWebSocket, WebcastWebConfigDefaults, WebcastWebSocketConfig, WebcastWebSocketConfigDefaults, WebcastWebSocketEventMap, WrappedHttpRoute, createBaseWebcastPushFrame, createEulerClient, createRoute, createWebSocketProvider, deserializeMessage, deserializeWebSocketMessage, fetchIsLiveComposite, fetchRoomGiftsRoute, fetchRoomIdComposite, fetchRoomIdFromEulerRoute, fetchRoomInfoFromApiLiveRoute, fetchRoomInfoFromEulerRoute, fetchRoomInfoFromHtmlRoute, fetchRoomInfoRoute, fetchSignedWebSocketFromEulerRoute, fetchWebcastSignatureFromEulerRoute, generateDeviceId, generateUniqId, getRandomDevicePreset, getRandomLocationPreset, getRandomPresets, getRandomScreenPreset, getWebConfig, getWebSocketConfigDefaults, sendRoomChatFromEulerRoute, userAgentToDevicePreset, validateAndNormalizeUniqueId };
+//# sourceMappingURL=index.d.ts.map
