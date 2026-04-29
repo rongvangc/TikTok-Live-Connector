@@ -373,7 +373,6 @@ export class TikTokLiveConnection extends (EventEmitter as WebcastTypedClient) {
      *
      * @param uniqueId Optional unique ID to use instead of the current one
      */
-    @HandleError('Failed to retrieve Room ID from all sources.')
     public async fetchRoomId(uniqueId: string = this.uniqueId): Promise<string> {
         this._webClient.roomId = await RouteConfig.fetchRoomIdComposite(
             {
@@ -388,7 +387,6 @@ export class TikTokLiveConnection extends (EventEmitter as WebcastTypedClient) {
     /**
      * Fetch whether the streamer is currently live
      */
-    @HandleError('Failed to retrieve live status from all sources.')
     public async fetchIsLive(uniqueId: string = this.uniqueId): Promise<boolean> {
         return RouteConfig.fetchIsLiveComposite(
             {
@@ -403,7 +401,6 @@ export class TikTokLiveConnection extends (EventEmitter as WebcastTypedClient) {
      * Get the current room info (including streamer info, room status and statistics)
      * @returns Promise that will be resolved when the room info has been retrieved from the API
      */
-    @HandleError('Failed to fetch room info.')
     public async fetchRoomInfo(roomId: string = this.roomId): Promise<RoomInfoResponse> {
 
         if (!roomId) {
@@ -418,7 +415,6 @@ export class TikTokLiveConnection extends (EventEmitter as WebcastTypedClient) {
      * Get the available gifts in the current room
      * @returns Promise that will be resolved when the available gifts have been retrieved from the API
      */
-    @HandleError('Failed to fetch room gifts.')
     public async fetchAvailableGifts(): Promise<RoomGiftInfo> {
         return RouteConfig.fetchRoomGifts(
             {
@@ -434,7 +430,6 @@ export class TikTokLiveConnection extends (EventEmitter as WebcastTypedClient) {
      * @param content Message content to send to the stream
      * @param roomId Target room ID. If not specified, the message will be sent to the currently connected room. Note that a room ID is required to send a message, so if you're not currently connected to a room you must specify a room ID.
      */
-    @HandleError('Failed to send message.')
     public async sendMessage(content: string, roomId = this.roomId): Promise<WebcastRoomChatRouteResponse> {
 
         return RouteConfig.sendRoomChatFromProvider(
@@ -717,3 +712,22 @@ export class TikTokLiveConnection extends (EventEmitter as WebcastTypedClient) {
 
 
 }
+
+function applyHandleError(methodName: keyof TikTokLiveConnection & string, errMsg: string): void {
+    const descriptor = Object.getOwnPropertyDescriptor(TikTokLiveConnection.prototype, methodName);
+
+    if (!descriptor || typeof descriptor.value !== 'function') {
+        throw new Error(`Cannot apply HandleError to ${methodName}`);
+    }
+
+    Object.defineProperty(TikTokLiveConnection.prototype, methodName, {
+        ...descriptor,
+        value: HandleError(errMsg)(descriptor.value, {} as ClassMethodDecoratorContext)
+    });
+}
+
+applyHandleError('fetchRoomId', 'Failed to retrieve Room ID from all sources.');
+applyHandleError('fetchIsLive', 'Failed to retrieve live status from all sources.');
+applyHandleError('fetchRoomInfo', 'Failed to fetch room info.');
+applyHandleError('fetchAvailableGifts', 'Failed to fetch room gifts.');
+applyHandleError('sendMessage', 'Failed to send message.');

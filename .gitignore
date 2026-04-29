@@ -143,3 +143,6 @@ unzip-test.ts
 
 # macOS
 .DS_Store
+
+package-lock.json
+profiles/

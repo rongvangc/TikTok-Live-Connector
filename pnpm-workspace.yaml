@@ -1,0 +1,6 @@
+allowBuilds:
+  bufferutil: true
+  core-js: true
+  esbuild: true
+  protobufjs: true
+  utf-8-validate: true
